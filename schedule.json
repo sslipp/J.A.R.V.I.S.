@@ -1,0 +1,26 @@
+[
+    {
+        "day": "Monday",
+        "time": "18:25",
+        "url": "https://meet.google.com/itj-hcnw-twy",
+        "mouse_clicks": [
+            {"x": 779, "y": 726},
+            {"x": 715, "y": 737},
+            {"x": 1346, "y": 520}
+        ],
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Monday",
+        "time": "09:00",
+        "url": "https://example.com/lesson2",
+        "mouse_click": {"x": 600, "y": 400},
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Tuesday",
+        "time": "08:00",
+        "url": "https://example.com/lesson3",
+        "mouse_click": null
+    }
+]

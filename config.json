@@ -1,0 +1,13 @@
+{
+    "background_music": false,
+    "one_house": true,
+    "jarvis_mode": true,
+    "acdc_music": false,
+    "silent_mode": false,
+    "toggle_one_house": false,
+    "voice_name": "jarvis",
+    "custom_phrases": {},
+    "start_recorder": false,
+    "stop_recorder": true,
+    "stop_and_start_space": true
+}
