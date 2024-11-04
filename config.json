@@ -1,5 +1,8 @@
 {
     "background_music": false,
+    "SPOTIFY_CLIENT_ID": "89823507d268479483b70854eca4a47d",
+    "SPOTIFY_CLIENT_SECRET": "9a15d06f1ed5494cbc3a46bb3fdb7b4e",
+    "SPOTIFY_REDIRECT_URI": "http://localhost:8888/callback",
     "one_house": true,
     "jarvis_mode": true,
     "acdc_music": false,

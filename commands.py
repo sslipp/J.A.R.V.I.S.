@@ -1,4 +1,5 @@
 from assistant import play_background_music, toggle_jarvis_mode, toggle_school_protocol, stop_and_start_space, start_recorder, stop_recorder, toggle_acdc_music, adjust_volume, open_website, play_youtube_video, toggle_one_house, stop_background_music, adjust_brightness
+import spotify_helper
 
 def execute_command(command):
     command = command.lower()
@@ -7,9 +8,6 @@ def execute_command(command):
         play_background_music()
     elif "выключи музыку" in command:
         stop_background_music()
-    # elif "включи песню" in command:
-    #     song_name = command.replace("включи песню", "").strip()
-    #     play_spotify_song(song_name)
     elif any(keyword in command for keyword in ["запусти протокол школа", "запусти протокол школы", "активируй протокол школа", "активируй протокол школы", "активировать протокол школа", "активировать протокол школы"]):
         toggle_school_protocol()
     elif any(keyword in command for keyword in ["выключи протокол школа", "выключи протокол школы", "деактивируй протокол школа", "деактивируй протокол школы", "деактивировать протокол школы", "деактивировать протокол школа"]):
@@ -54,5 +52,10 @@ def execute_command(command):
     elif "найди видео" in command:
         query = command.replace("найди видео", "").strip()
         play_youtube_video(query)
+    elif "включи песню" in command:
+        song_name = command.replace("включи песню", "").strip()
+        spotify_helper.play_song(song_name)
+    elif "выключи песню" in command:
+        spotify_helper.stop_playback()
     else:
         print("Команда не распознана")

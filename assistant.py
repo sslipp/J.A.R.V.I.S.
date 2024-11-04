@@ -11,10 +11,6 @@ import screen_brightness_control as sbc
 from datetime import datetime
 import threading
 
-SPOTIFY_CLIENT_ID = "89823507d268479483b70854eca4a47d"
-SPOTIFY_CLIENT_SECRET = "9a15d06f1ed5494cbc3a46bb3fdb7b4e"
-SPOTIFY_ACCESS_TOKEN = "BQC8eB9FwnpW2-XMe3RETfR0wzcKC8vd7mtZRfv32hfEyLwuoSg5vUA1yN1w3enA01etpVeQP1sZ3b38rNJpDV-vBCBY7vxpOoIjDneXZTvuTJfQHms"
-
 # Инициализация синтеза речи
 engine = pyttsx3.init()
 
@@ -150,61 +146,6 @@ def stop_and_start_space():
     save_config()
     print("Пробел был нажат!")
     pyautogui.hotkey('space')
-
-# def list_devices():
-#     devices_url = "https://api.spotify.com/v1/me/player/devices"
-#     headers = {"Authorization": f"Bearer {SPOTIFY_ACCESS_TOKEN}"}
-#     response = requests.get(devices_url, headers=headers)
-    
-#     if response.status_code == 200:
-#         devices = response.json().get("devices", [])
-#         if devices:
-#             print("Список доступных устройств:")
-#             for device in devices:
-#                 print(f"Имя: {device['name']}, ID: {device['id']}, Активное: {device['is_active']}")
-#         else:
-#             print("Устройства не найдены.")
-#     else:
-#         print("Ошибка при получении устройств:", response.status_code)
-
-# def play_spotify_song(song_name):
-#     list_devices()  # Вызов функции для отображения списка устройств
-#     devices_url = "https://api.spotify.com/v1/me/player/devices"
-#     headers = {"Authorization": f"Bearer {SPOTIFY_ACCESS_TOKEN}"}
-#     devices_response = requests.get(devices_url, headers=headers)
-#     devices = devices_response.json().get("devices")
-    
-#     if not devices:
-#         print("Нет активного устройства для воспроизведения.")
-#         return
-    
-#     # Получаем ID активного устройства
-#     device_id = devices[0]["id"]
-
-#     # Поиск трека
-#     search_url = "https://api.spotify.com/v1/search"
-#     params = {"q": song_name, "type": "track", "limit": 1}
-#     response = requests.get(search_url, headers=headers, params=params)
-    
-#     if response.status_code == 200:
-#         track = response.json()['tracks']['items'][0]
-#         track_uri = track['uri']
-        
-#         # Воспроизведение трека на указанном устройстве
-#         play_url = "https://api.spotify.com/v1/me/player/play"
-#         play_response = requests.put(
-#             play_url, 
-#             headers=headers, 
-#             json={"uris": [track_uri]}, 
-#             params={"device_id": device_id}
-#         )
-        
-#         if play_response.status_code == 204:
-#             print(f"Воспроизведение песни: {track['name']} от {track['artists'][0]['name']}")
-#         else:
-#             print("Ошибка воспроизведения трека.")
-#     else:
-#         print("Ошибка поиска трека.")
 
 def toggle_one_house():
     config["one_house"] = not config["one_house"]
