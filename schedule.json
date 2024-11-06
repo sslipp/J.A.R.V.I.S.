@@ -96,14 +96,14 @@
     {
         "day": "Tuesday",
         "time": "11:25",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "url": "https://us04web.zoom.us/j/73081002120?pwd=0OATCctxXGV8v30Q04seKr8j78rMEb.1",
         "mouse_clicks": null,
         "keyboard_shortcut": null
     },
     {
         "day": "Tuesday",
         "time": "12:20",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "url": "https://us05web.zoom.us/j/83978192600?pwd=5vDgjGMXwaoUxi7Org9KU3PYllZ9lb.1",
         "mouse_clicks": [
             {"x": 779, "y": 726},
             {"x": 715, "y": 737},
@@ -114,7 +114,7 @@
     {
         "day": "Tuesday",
         "time": "13:25",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "url": "https://us04web.zoom.us/j/79561344838?pwd=c8XShLrY6F4i2FkSlUEJTWc7AoAqh0.1",
         "mouse_clicks": null,
         "keyboard_shortcut": null
     },
@@ -130,7 +130,7 @@
         "keyboard_shortcut": null
     },
     {
-        "day": "Tuesday",
+        "day": "Wensday",
         "time": "08:00",
         "url": "https://example.com/lesson3",
         "mouse_click": null

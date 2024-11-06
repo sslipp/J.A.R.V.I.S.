@@ -3,34 +3,46 @@ import spotify_helper
 
 def execute_command(command):
     command = command.lower()
+    command_executed = False  # Флаг выполнения команды
     
     if "включи музыку" in command:
         play_background_music()
+        command_executed = True
     elif "выключи музыку" in command:
         stop_background_music()
+        command_executed = True
     elif any(keyword in command for keyword in ["запусти протокол школа", "запусти протокол школы", "активируй протокол школа", "активируй протокол школы", "активировать протокол школа", "активировать протокол школы"]):
         toggle_school_protocol()
+        command_executed = True
     elif any(keyword in command for keyword in ["выключи протокол школа", "выключи протокол школы", "деактивируй протокол школа", "деактивируй протокол школы", "деактивировать протокол школы", "деактивировать протокол школа"]):
         toggle_school_protocol()
+        command_executed = True
     elif "режим джарвиса" in command:
         toggle_jarvis_mode()
+        command_executed = True
     elif "включи запись" in command:
         start_recorder()
+        command_executed = True
     elif "выключи запись" in command:
         stop_recorder()
+        command_executed = True
     elif "я один дома" in command:
         toggle_one_house()
+        command_executed = True
     elif any(keyword in command for keyword in ["стоп", "старт", "останови", "запусти", "пауза", "поставь на паузу", "плей", "play"]):
         stop_and_start_space()
+        command_executed = True
     elif "включить acdc" in command:
         toggle_acdc_music()
-    elif any(keyword in command for keyword in ["громкость", "звук", "без"]):
-        if any(word in command for word in ["максимум", "на максимум", "на полную", "на сотку"]):
+        command_executed = True
+    elif any(keyword in command for keyword in ["громкость", "звук", "без", "сделай звук"]):
+        if any(word in command for word in ["максимум", "на максимум", "на полную", "на сотку", "выкрути на сотку"]):
             adjust_volume('maximum')
-        elif any(word in command for word in ["минимум", "по минимуму", "на минимум", "звука"]):
+        elif any(word in command for word in ["минимум", "по минимуму", "на минимум", "звука", "выкрути на 0", "выключи", "звук"]):
             adjust_volume('minimum')
         elif any(word in command for word in ["на половину", "на 50", "чуть тише", "тише"]):
             adjust_volume('middle')
+        command_executed = True
     elif "открой" in command:
         if "почту" in command:
             open_website("mail")
@@ -41,6 +53,7 @@ def execute_command(command):
         else:
             site_name = command.split("открыть")[1].strip()
             open_website(site_name)
+        command_executed = True
     elif any(keyword in command for keyword in ["сделай яркость на", "установи яркость на", "поставь яркость на", "яркость на"]):
         if any(word in command for word in ["максимум", "на максимум", "на полную", "сотку"]):
             adjust_brightness('максимум')
@@ -49,13 +62,19 @@ def execute_command(command):
         else:
             brightness_level = command.split("на")[-1].strip()
             adjust_brightness(brightness_level)
+        command_executed = True
     elif "найди видео" in command:
         query = command.replace("найди видео", "").strip()
         play_youtube_video(query)
+        command_executed = True
     elif "включи песню" in command:
         song_name = command.replace("включи песню", "").strip()
         spotify_helper.play_song(song_name)
+        command_executed = True
     elif "выключи песню" in command:
         spotify_helper.stop_playback()
+        command_executed = True
     else:
         print("Команда не распознана")
+
+    return command_executed

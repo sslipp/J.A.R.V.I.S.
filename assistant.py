@@ -153,7 +153,7 @@ def toggle_one_house():
     if config["one_house"]:
         speak("Я вас поняла шалунишка")
         print("Я вас поняла шалунишка")
-        webbrowser.open("https://sex-studentki.live/hq-porn")
+        webbrowser.open("...")
     else:
         speak("Выключаю")
         print("Выключаю")
