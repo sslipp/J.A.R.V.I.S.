@@ -1,5 +1,6 @@
 import os
 import pyttsx3
+import azure.cognitiveservices.speech as speechsdk
 import pyautogui
 import webbrowser
 import json
@@ -11,28 +12,33 @@ import screen_brightness_control as sbc
 from datetime import datetime
 import threading
 
-# Инициализация синтеза речи
-engine = pyttsx3.init()
+# Azure TTS Конфигурация
+speech_key = "A6WSUnMWuJCajVJ66wZWYNI4ZY302r1vpJV1BzUquJVEs1UiaRtFJQQJ99AKACYeBjFXJ3w3AAAYACOGvO8G"
+service_region = "eastus"
+speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
+speech_config.speech_synthesis_voice_name = "ru-RU-DariyaNeural"
 
-# Настройка русского голоса
-voices = engine.getProperty('voices')
-# Найдите и установите русский голос
-for voice in voices:
-    if 'ru' in voice.languages or 'Russian' in voice.name:
-        engine.setProperty('voice', voice.id)
-        break
+# Настройка аудиовыхода
+audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
 
 # Загрузка настроек из config.json
 with open('config.json', 'r') as f:
     config = json.load(f)
 
 def speak(text):
-    try:
-        if not config["silent_mode"]:
-            engine.say(text)
-            engine.runAndWait()
-    except Exception as e:
-        print(f"Ошибка при озвучке: {e}")
+    if not config["silent_mode"]:
+        ssml_string = f"""
+        <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='ru-RU'>
+            <voice name='ru-RU-DariyaNeural'>
+                <prosody pitch='+2Hz' rate='+2%'>{text}</prosody>
+            </voice>
+        </speak>
+        """
+        synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+        result = synthesizer.speak_ssml_async(ssml_string).get()
+
+        if result.reason == speechsdk.ResultReason.Canceled:
+            print("Ошибка синтеза речи:", result.cancellation_details.error_details)
 
 school_protocol_active = False  # Переменная для отслеживания состояния протокола
 schedule_thread = None  # Переменная для потока
@@ -189,10 +195,14 @@ def open_website(name):
         "youtube": "https://youtube.com",
         "netflix": "https://netflix.com"
     }
-    url = websites.get(name, f"https://{name}.com")
+    if name in websites:
+        url = websites[name]
+        print(f"Открываю {name}")
+    else:
+        url = f"https://www.google.com/search?q={name.replace(' ', '+')}"
+        print(f"Ищу в Google: {name}")
+
     webbrowser.open(url)
-    speak(f"Открываю {name}")
-    print(f"Открываю {name}")
 
 def play_youtube_video(query):
     kit.playonyt(query)

@@ -54,6 +54,10 @@ def execute_command(command):
             site_name = command.split("открыть")[1].strip()
             open_website(site_name)
         command_executed = True
+    elif "загугли" in command:
+        search_query = command.split("загугли", 1)[1].strip()
+        open_website(search_query)
+        command_executed = True
     elif any(keyword in command for keyword in ["сделай яркость на", "установи яркость на", "поставь яркость на", "яркость на"]):
         if any(word in command for word in ["максимум", "на максимум", "на полную", "сотку"]):
             adjust_brightness('максимум')

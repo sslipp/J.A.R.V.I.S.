@@ -1,3 +1,4 @@
+import azure.cognitiveservices.speech as speechsdk
 import speech_recognition as sr
 import pyttsx3
 import json
@@ -5,7 +6,7 @@ import requests
 import re
 from gemini_api import chat_with_edith
 from commands import execute_command
-from object_detector import ObjectDetector  # Импортируем ObjectDetector
+from object_detector import ObjectDetector
 
 API_KEY_WEATHER = "42b5a70adf7db188e78f8c14369b5e2a"
 CURRENCY_API_KEY = "77f1b03f7318978ec1698eb5"
@@ -13,15 +14,29 @@ CURRENCY_API_KEY = "77f1b03f7318978ec1698eb5"
 assistant_active = False
 edit_commands = ["edit", "эдит", "просыпайся папочка вернулся", "просыпайся папочка на месте", "эдик"]
 
-# Инициализация синтеза речи
-engine = pyttsx3.init()
+# Azure TTS Конфигурация
+speech_key = "A6WSUnMWuJCajVJ66wZWYNI4ZY302r1vpJV1BzUquJVEs1UiaRtFJQQJ99AKACYeBjFXJ3w3AAAYACOGvO8G"
+service_region = "eastus"
+speech_config = speechsdk.SpeechConfig(subscription=speech_key, region=service_region)
+speech_config.speech_synthesis_voice_name = "ru-RU-DariyaNeural"
 
-# Настройка русского голоса
-voices = engine.getProperty('voices')
-for voice in voices:
-    if 'ru' in voice.languages or 'Russian' in voice.name:
-        engine.setProperty('voice', voice.id)
-        break
+# Настройка аудиовыхода
+audio_config = speechsdk.audio.AudioOutputConfig(use_default_speaker=True)
+
+def speak(text):
+    if not config["silent_mode"]:
+        ssml_string = f"""
+        <speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='ru-RU'>
+            <voice name='ru-RU-DariyaNeural'>
+                <prosody pitch='+2Hz' rate='+2%'>{text}</prosody>
+            </voice>
+        </speak>
+        """
+        synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
+        result = synthesizer.speak_ssml_async(ssml_string).get()
+
+        if result.reason == speechsdk.ResultReason.Canceled:
+            print("Ошибка синтеза речи:", result.cancellation_details.error_details)
 
 # Загрузка конфигурации
 with open('config.json', 'r') as f:
@@ -29,14 +44,6 @@ with open('config.json', 'r') as f:
 
 # Инициализация детектора объектов
 detector = ObjectDetector()
-
-def speak(text):
-    try:
-        if not config["silent_mode"]:
-            engine.say(text)
-            engine.runAndWait()
-    except Exception as e:
-        print(f"Ошибка при озвучке: {e}")
 
 def convert_currency(amount, from_currency, to_currency):
     url = f"https://api.exchangerate-api.com/v4/latest/{from_currency}"
