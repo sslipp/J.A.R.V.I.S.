@@ -61,7 +61,7 @@ def adjust_brightness(level):
 def play_background_music():
     config["background_music"] = True
     save_config()
-    speak("Открываю фоновую музыку")
+    speak("Открываю фоновую музыку, Сэр")
     print("Открываю фоновую музыку")
     webbrowser.open("https://www.youtube.com/watch?v=1fueZCTYkpA")
 
@@ -71,6 +71,35 @@ def stop_background_music():
     speak("Фоновая музыка выключена")
     print("Фоновая музыка выключена")
     pyautogui.hotkey('ctrl', 'w')
+
+def minimize_window():
+    speak("Сворачиваю окно")
+    print("Сворачиваю окно")
+    pyautogui.hotkey("win", "down")
+
+def shutdown_computer():
+    speak("Выключаю компьютер. До свидания!")
+    print("Выключаю компьютер...")
+    os.system("shutdown /s /t 3")
+
+def start_weekend_mode():
+    speak("Запрос выполнен, Сэр")
+    print("Запрос выполнен")
+
+    # os.system(r'start "" "C:\Users\Rodion\AppData\Roaming\Telegram Desktop\Telegram.exe"') 
+
+def switch_keyboard_layout():
+    speak("Готово, Сэр")
+    print("Смена раскладки выполнена")
+    pyautogui.hotkey("alt", "shift")
+
+def start_work_mode():
+    speak("Запрос выполнен, Сэр")
+    print("Запрос выполнен")
+
+    os.system("start tradingview") 
+    os.system(r'start "" "C:\Users\Rodion\AppData\Roaming\Telegram Desktop\Telegram.exe"') 
+    os.system("start opera") 
 
 def load_schedule(file_path="schedule.json"):
     """Загружает расписание из JSON файла."""

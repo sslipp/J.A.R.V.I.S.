@@ -1,4 +1,4 @@
-from assistant import play_background_music, toggle_jarvis_mode, toggle_school_protocol, stop_and_start_space, start_recorder, stop_recorder, toggle_acdc_music, adjust_volume, open_website, play_youtube_video, toggle_one_house, stop_background_music, adjust_brightness
+from assistant import play_background_music, toggle_jarvis_mode, shutdown_computer, start_weekend_mode, switch_keyboard_layout, start_work_mode, minimize_window, toggle_school_protocol, stop_and_start_space, start_recorder, stop_recorder, toggle_acdc_music, adjust_volume, open_website, play_youtube_video, toggle_one_house, stop_background_music, adjust_brightness
 import spotify_helper
 
 def execute_command(command):
@@ -20,11 +20,26 @@ def execute_command(command):
     elif "режим джарвиса" in command:
         toggle_jarvis_mode()
         command_executed = True
+    elif "сверни окно" in command:
+        minimize_window()
+        command_executed = True
+    elif "выключи компьютер" in command:
+        shutdown_computer()
+        command_executed = True
+    elif "смени язык" in command:
+        switch_keyboard_layout()
+        command_executed = True
     elif "включи запись" in command:
         start_recorder()
         command_executed = True
     elif "выключи запись" in command:
         stop_recorder()
+        command_executed = True
+    elif "за работу" in command:
+        start_work_mode()
+        command_executed = True
+    elif "протокол выходной день" in command:
+        start_weekend_mode()
         command_executed = True
     elif "я один дома" in command:
         toggle_one_house()
