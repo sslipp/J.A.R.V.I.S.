@@ -11,6 +11,10 @@ import pywhatkit as kit
 import screen_brightness_control as sbc
 from datetime import datetime
 import threading
+from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+from comtypes import CLSCTX_ALL
+from ctypes import cast, POINTER
+from human_parser import parse_all_lesson_links
 
 # Azure TTS Конфигурация
 speech_key = "A6WSUnMWuJCajVJ66wZWYNI4ZY302r1vpJV1BzUquJVEs1UiaRtFJQQJ99AKACYeBjFXJ3w3AAAYACOGvO8G"
@@ -82,6 +86,12 @@ def shutdown_computer():
     print("Выключаю компьютер...")
     os.system("shutdown /s /t 3")
 
+def sleep_computer():
+    speak("Перевожу компьютер в спящий режим. До свидания, Сэр!")
+    print("Перевожу компьютер в спящий режим...")
+    time.sleep(3)
+    os.system("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")
+
 def start_weekend_mode():
     speak("Запрос выполнен, Сэр")
     print("Запрос выполнен")
@@ -102,65 +112,100 @@ def start_work_mode():
     os.system("start opera") 
 
 def load_schedule(file_path="schedule.json"):
-    """Загружает расписание из JSON файла."""
-    with open(file_path, "r", encoding="utf-8") as file:
-        return json.load(file)
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as file:
+            return json.load(file)
+    else:
+        print("Файл с расписанием не найден.")
+        return {}
+
+# Загрузка ссылок для текущего дня
+def load_links_for_today():
+    file_date = datetime.now().strftime("%d.%m.%Y")
+    file_name = f"{file_date}.json"
+
+    if os.path.exists(file_name):
+        with open(file_name, "r", encoding="utf-8") as file:
+            lesson_links = json.load(file)
+        print(f"Файл с ссылками для {file_date} найден.")
+    else:
+        print(f"Файл с ссылками для {file_date} не найден. Запускаем парсер...")
+        lesson_links = parse_all_lesson_links()
+        print(f"Создан новый файл с ссылками для {file_date}.")
+
+    return lesson_links
 
 def execute_scheduled_action(action):
-    """Выполняет действия по расписанию: переход по ссылке, клик мышью, комбинация клавиш."""
-    # Переход по ссылке
+    """Выполняет действия по расписанию: переход по ссылке и клики мышью."""
+    # Переход по ссылке, если она есть
     if action.get("url"):
         webbrowser.open(action["url"])
-        print(f"Переход по ссылке: {action['url']}")
-    time.sleep(5)
+        print(f"Переход по ссылке: {action['url']}")   
+    time.sleep(5)  # Задержка, чтобы страница успела загрузиться
 
-    # # Нажатие комбинации клавиш
-    # keyboard_shortcut = action.get("keyboard_shortcut")
-    # if keyboard_shortcut:
-    #     time.sleep(2)
-    #     pyautogui.hotkey(*keyboard_shortcut)
-    #     print(f"Нажатие комбинации клавиш: {' + '.join(keyboard_shortcut)}")
-
-  # Выполнение кликов мышью по указанным координатам
+    print("команда mouse click")
     mouse_clicks = action.get("mouse_clicks", [])
+    
+    # Проверка на наличие кликов в списке
+    if not mouse_clicks:
+        print("Нет координат для кликов.")
+        return
+    
+    print("команда mouse click2")
     for i, click in enumerate(mouse_clicks):
+        print("команда mouse click3")
+
+        # Получаем координаты клика
         x, y = click["x"], click["y"]
         time.sleep(2)  # Небольшая задержка перед каждым кликом
-        pyautogui.click(x, y)
-        print(f"Клик мышью #{i+1} на координатах: ({x}, {y})")
+        
+        print(f"команда mouse click4 - пробуем кликнуть на координатах ({x}, {y})")
+        
+        # Попытка выполнить клик
+        try:
+            pyautogui.click(x, y)
+            print(f"Клик мышью #{i+1} на координатах: ({x}, {y})")
+        except Exception as e:
+            print(f"Ошибка при попытке кликнуть на координатах ({x}, {y}): {e}")
 
-def check_schedule_loop(schedule):
-    """Запускает цикл для проверки расписания и выполнения действий."""
+# Цикл проверки расписания
+def check_schedule_loop(schedule, lesson_links):
     while school_protocol_active:
         now = datetime.now()
         current_time = now.strftime("%H:%M")
         current_day = now.strftime("%A")
 
-        for action in schedule:
-            if action["day"] == current_day and action["time"] == current_time:
-                print(f"Выполнение действия по расписанию на {current_day} в {current_time}")
-                execute_scheduled_action(action)
-                time.sleep(60)  # Ждать одну минуту, чтобы избежать повторного выполнения
-        time.sleep(30)  # Проверять расписание каждые 30 секунд
+        # Проверка уроков на текущий день недели
+        for lesson in schedule:
+            if lesson["day"] == current_day and lesson["time"] == current_time:
+                lesson_number = str(lesson["lesson_number"])
+                if lesson_number in lesson_links:
+                    action = {"url": lesson_links[lesson_number]}
+                    execute_scheduled_action(action)
+                else:
+                    print(f"Ссылка для урока {lesson_number} не найдена")
+        
+        time.sleep(40)
 
+# Активация школьного протокола
 def toggle_school_protocol():
-    """Переключает состояние протокола школы."""
     global school_protocol_active, schedule_thread
     school_protocol_active = not school_protocol_active
-    
+
     if school_protocol_active:
         schedule = load_schedule()
+        lesson_links = load_links_for_today()
+        
         speak("Протокол 'Школа' активирован")
         print("Протокол 'Школа' активирован. Запуск проверки расписания.")
-        # Запускаем цикл расписания в отдельном потоке
-        schedule_thread = threading.Thread(target=check_schedule_loop, args=(schedule,))
+        
+        schedule_thread = threading.Thread(target=check_schedule_loop, args=(schedule, lesson_links,))
         schedule_thread.start()
     else:
         speak("Протокол 'Школа' деактивирован")
         print("Протокол 'Школа' деактивирован.")
-        school_protocol_active = False
         if schedule_thread and schedule_thread.is_alive():
-            schedule_thread.join()  # Останавливаем поток корректно
+            schedule_thread.join()
 
 def start_recorder():
     config["start_recorder"] = False
@@ -210,13 +255,14 @@ def toggle_acdc_music():
     print("Музыка AC/DC включена" if config["acdc_music"] else "Музыка AC/DC выключена")
 
 def adjust_volume(level):
-    if level == 'maximum':
-        pyautogui.press('volumeup', presses=50)
-    elif level == 'minimum':
-        pyautogui.press('volumedown', presses=50)
-    elif level == 'middle':
-        pyautogui.press('volumedown', presses=25)
-    print(f"Громкость установлена на {level}")
+    devices = AudioUtilities.GetSpeakers()
+    interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
+    volume = cast(interface, POINTER(IAudioEndpointVolume))
+    
+    volume_value = float(level) / 100
+    volume.SetMasterVolumeLevelScalar(volume_value, None)
+    speak("Запрос выполнен, Сэр!")
+    print(f"Громкость установлена на {level}%")
 
 def open_website(name):
     websites = {

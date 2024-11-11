@@ -2,7 +2,7 @@
     {
         "day": "Monday",
         "time": "08:30",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "lesson_number": 1,
         "mouse_clicks": [
             {"x": 779, "y": 726},
             {"x": 715, "y": 737},
@@ -13,7 +13,7 @@
     {
         "day": "Monday",
         "time": "09:25",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "lesson_number": 2,
         "mouse_clicks": [
             {"x": 779, "y": 726},
             {"x": 715, "y": 737},
@@ -24,7 +24,7 @@
     {
         "day": "Monday",
         "time": "10:30",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "lesson_number": 3,
         "mouse_clicks": [
             {"x": 779, "y": 726},
             {"x": 715, "y": 737},
@@ -35,7 +35,7 @@
     {
         "day": "Monday",
         "time": "11:25",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "lesson_number": 4,
         "mouse_clicks": [
             {"x": 779, "y": 726},
             {"x": 715, "y": 737},
@@ -46,21 +46,28 @@
     {
         "day": "Monday",
         "time": "12:20",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "lesson_number": 5,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Monday",
+        "time": "13:25",
+        "lesson_number": 6,
         "mouse_clicks": null,
         "keyboard_shortcut": null
     },
     {
         "day": "Monday",
         "time": "14:20",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "lesson_number": 7,
         "mouse_clicks": null,
         "keyboard_shortcut": null
     },
     {
         "day": "Monday",
         "time": "15:15",
-        "url": "https://meet.google.com/pue-cixk-ygf",
+        "lesson_number": 8,
         "mouse_clicks": [
             {"x": 779, "y": 726},
             {"x": 715, "y": 737},
@@ -71,14 +78,14 @@
     {
         "day": "Tuesday",
         "time": "08:30",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "lesson_number": 9,
         "mouse_clicks": null,
         "keyboard_shortcut": null
     },
     {
         "day": "Tuesday",
         "time": "09:25",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "lesson_number": 10,
         "mouse_clicks": [
             {"x": 779, "y": 726},
             {"x": 715, "y": 737},
@@ -89,21 +96,21 @@
     {
         "day": "Tuesday",
         "time": "10:30",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "lesson_number": 11,
         "mouse_clicks": null,
         "keyboard_shortcut": null
     },
     {
         "day": "Tuesday",
         "time": "11:25",
-        "url": "https://us04web.zoom.us/j/73081002120?pwd=0OATCctxXGV8v30Q04seKr8j78rMEb.1",
+        "lesson_number": 12,
         "mouse_clicks": null,
         "keyboard_shortcut": null
     },
     {
         "day": "Tuesday",
         "time": "12:20",
-        "url": "https://us05web.zoom.us/j/83978192600?pwd=5vDgjGMXwaoUxi7Org9KU3PYllZ9lb.1",
+        "lesson_number": 13,
         "mouse_clicks": [
             {"x": 779, "y": 726},
             {"x": 715, "y": 737},
@@ -114,14 +121,14 @@
     {
         "day": "Tuesday",
         "time": "13:25",
-        "url": "https://us04web.zoom.us/j/79561344838?pwd=c8XShLrY6F4i2FkSlUEJTWc7AoAqh0.1",
+        "lesson_number": 14,
         "mouse_clicks": null,
         "keyboard_shortcut": null
     },
     {
         "day": "Tuesday",
         "time": "14:20",
-        "url": "https://meet.google.com/itj-hcnw-twy",
+        "lesson_number": 15,
         "mouse_clicks": [
             {"x": 779, "y": 726},
             {"x": 715, "y": 737},
@@ -130,9 +137,186 @@
         "keyboard_shortcut": null
     },
     {
-        "day": "Wensday",
-        "time": "08:00",
-        "url": "https://example.com/lesson3",
-        "mouse_click": null
+        "day": "Wednesday",
+        "time": "08:30",
+        "lesson_number": 16,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Wednesday",
+        "time": "09:25",
+        "lesson_number": 17,
+        "mouse_clicks": [
+            {"x": 779, "y": 726},
+            {"x": 715, "y": 737},
+            {"x": 1346, "y": 520}
+        ],
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Wednesday",
+        "time": "10:30",
+        "lesson_number": 18,
+        "mouse_clicks": [
+            {"x": 779, "y": 726},
+            {"x": 715, "y": 737},
+            {"x": 1346, "y": 520}
+        ],
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Wednesday",
+        "time": "11:25",
+        "lesson_number": 19,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Wednesday",
+        "time": "12:20",
+        "lesson_number": 20,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Wednesday",
+        "time": "13:25",
+        "lesson_number": 21,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Wednesday",
+        "time": "14:20",
+        "lesson_number": 22,
+        "mouse_clicks": [
+            {"x": 779, "y": 726},
+            {"x": 715, "y": 737},
+            {"x": 1346, "y": 520}
+        ],
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Thursday",
+        "time": "08:30",
+        "lesson_number": 23,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Thursday",
+        "time": "09:25",
+        "lesson_number": 24,
+        "mouse_clicks": [
+            {"x": 779, "y": 726},
+            {"x": 715, "y": 737},
+            {"x": 1346, "y": 520}
+        ],
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Thursday",
+        "time": "10:30",
+        "lesson_number": 25,
+        "mouse_clicks": [
+            {"x": 779, "y": 726},
+            {"x": 715, "y": 737},
+            {"x": 1346, "y": 520}
+        ],
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Thursday",
+        "time": "11:25",
+        "lesson_number": 26,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Thursday",
+        "time": "12:20",
+        "lesson_number": 27,
+        "mouse_clicks": [
+            {"x": 779, "y": 726},
+            {"x": 715, "y": 737},
+            {"x": 1346, "y": 520}
+        ],
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Thursday",
+        "time": "13:25",
+        "lesson_number": 28,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Thursday",
+        "time": "14:20",
+        "lesson_number": 29,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Friday",
+        "time": "08:30",
+        "lesson_number": 30,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Friday",
+        "time": "09:25",
+        "lesson_number": 31,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Friday",
+        "time": "10:30",
+        "lesson_number": 32,
+        "mouse_clicks": [
+            {"x": 779, "y": 726},
+            {"x": 715, "y": 737},
+            {"x": 1346, "y": 520}
+        ],
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Friday",
+        "time": "11:25",
+        "lesson_number": 33,
+        "mouse_clicks": [
+            {"x": 779, "y": 726},
+            {"x": 715, "y": 737},
+            {"x": 1346, "y": 520}
+        ],
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Friday",
+        "time": "12:20",
+        "lesson_number": 34,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Friday",
+        "time": "13:25",
+        "lesson_number": 35,
+        "mouse_clicks": [
+            {"x": 779, "y": 726},
+            {"x": 715, "y": 737},
+            {"x": 1346, "y": 520}
+        ],
+        "keyboard_shortcut": null
+    },
+    {
+        "day": "Friday",
+        "time": "14:20",
+        "lesson_number": 36,
+        "mouse_clicks": null,
+        "keyboard_shortcut": null
     }
 ]

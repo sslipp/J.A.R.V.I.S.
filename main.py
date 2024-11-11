@@ -12,6 +12,7 @@ import pyaudio
 import numpy as np
 import threading
 import time
+import game_mode
 
 # API ключи и начальные настройки
 API_KEY_WEATHER = "42b5a70adf7db188e78f8c14369b5e2a"
@@ -19,7 +20,7 @@ CURRENCY_API_KEY = "77f1b03f7318978ec1698eb5"
 assistant_active = False
 assistant_timer = None
 
-wake_word_path = "jasmine_en_windows_v3_0_0.ppn"
+wake_word_path = "jarvis_en_windows_v3_0_0.ppn"
 
 # Списки для приветствий и прощаний
 greetings = [
@@ -137,6 +138,10 @@ def detect_object_on_screen():
     speak(f"На экране обнаружен объект: {label} с вероятностью {confidence:.2%}")
     print(f"Объект: {label}, Вероятность: {confidence:.2%}")
 
+def start_game_mode():
+    speak("Запускаю игровой режим, Сэр")
+    game_mode.game_mode(speak, listen_command)
+
 def deactivate_after_timeout():
     global assistant_active
     global assistant_timer
@@ -144,7 +149,7 @@ def deactivate_after_timeout():
     if assistant_timer:
         assistant_timer.cancel()
     
-    assistant_timer = threading.Timer(10, deactivate_assistant)
+    assistant_timer = threading.Timer(15, deactivate_assistant)
     assistant_timer.start()
 
 def deactivate_assistant():
@@ -161,7 +166,6 @@ currency_codes = {
     "евро": "EUR", "евра": "EUR"
 }
 
-# Инициализация Porcupine
 porcupine = pvporcupine.create(
     access_key="FJ5n7q2rk+pBiqS6CQO9cI4uZmu6QCd7/UfmbiX4Phy/mYcN7qWXYg==",
     keyword_paths=[wake_word_path]
@@ -233,6 +237,8 @@ try:
                                 print(weather_info)
                         elif "что на экране" in command:
                             detect_object_on_screen()  # Вызов распознавания объекта на экране
+                        elif "запусти игровой режим" in command:
+                            start_game_mode()
                         else:
                             currency_match = re.search(r'(\d+[.,]?\d*)\s*(рублей|руб|рубли|гривен|грн|гривны|гривна|доллары|долларов|доллар|доллоров|евро|eur)\s*в\s*(рублей|руб|рубли|гривен|грн|гривны|гривна|доллары|долларов|доллар|доллоров|евро|eur)', command)
                             if currency_match:
@@ -251,8 +257,6 @@ try:
                                 gpt_response = chat_with_edith(command)
                                 speak(gpt_response)
                                 print(gpt_response)
-        else:
-            print("Помощник отключен, жду активацию.")
 except KeyboardInterrupt:
     print("Остановка программы.")
 finally:
