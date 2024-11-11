@@ -1,4 +1,4 @@
-# J.A.S.M.I.N.E.
+# J.A.R.V.I.S.
 
 # Python version
 I was using Python `3.10.0`, but it should work on any newer version.
